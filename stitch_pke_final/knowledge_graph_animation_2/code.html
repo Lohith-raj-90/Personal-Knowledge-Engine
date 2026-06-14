@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PKE - Neural Knowledge Graph</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Geist:wght@300;400;500&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>body {
+    background-color: #020408;
+    color: #e0e2eb;
+    overflow: hidden
+    }
+.noise-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    opacity: 0.04;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuCHG9Rt1Vbc3OTqExXnZJh9VUIwvukYfLxXAIQug45twWdy8Bj8efx5FiRQ2fqtvMrv5L1B8KBSj_hJflDxNa4qn96Vg7Be2Vx93x0B1agc0h2O0lDJtGXir8ITetmb39s3V8U5y0hc0vattvpSSDRo1eiIW03wPmBn42UPAy6AL3hxsL8fG1EQ49fKppgluwRDwugLQa5IPyxG3LkkIE31du9xsPwqrs5y6Q5OZLyq-We4Cp5uH2ukoy0VjwTO1HUzrEQJWUCm5Cw);
+    z-index: 9999
+    }
+.crystalline-glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 12px rgba(79, 158, 255, 0.05)
+    }
+.holographic-glow {
+    box-shadow: 0 0 20px rgba(79, 158, 255, 0.3), inset 0 0 10px rgba(79, 158, 255, 0.2)
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+    vertical-align: middle
+    }
+/* Custom Scrollbar for sidebars */
+::-webkit-scrollbar {
+    width: 4px
+    }
+::-webkit-scrollbar-track {
+    background: transparent
+    }
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px
+    }
+@keyframes pulse-cyan {
+    0% {
+        box-shadow: 0 0 0 0 rgba(40, 255, 205, 0.4);
+        } 70% {
+        box-shadow: 0 0 0 10px rgba(40, 255, 205, 0);
+        } 100% {
+        box-shadow: 0 0 0 0 rgba(40, 255, 205, 0);
+        }
+    }
+.active-pulse {
+    animation: pulse-cyan 2s infinite
+    }</style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-highest": "#31353c",
+                        "secondary-container": "#4f319c",
+                        "on-surface": "#e0e2eb",
+                        "primary-container": "#4f9eff",
+                        "on-tertiary-fixed": "#002118",
+                        "tertiary-fixed": "#28ffcd",
+                        "surface-tint": "#a5c8ff",
+                        "surface": "#101419",
+                        "outline": "#8b919e",
+                        "on-error": "#690005",
+                        "inverse-on-surface": "#2d3137",
+                        "outline-variant": "#414752",
+                        "on-tertiary-container": "#003c2e",
+                        "tertiary-fixed-dim": "#00e0b3",
+                        "surface-container-high": "#262a31",
+                        "on-error-container": "#ffdad6",
+                        "surface-bright": "#363940",
+                        "on-primary-fixed-variant": "#004786",
+                        "on-surface-variant": "#c1c7d4",
+                        "on-primary": "#00315f",
+                        "surface-variant": "#31353c",
+                        "inverse-primary": "#005faf",
+                        "surface-container": "#1c2026",
+                        "primary": "#a5c8ff",
+                        "error-container": "#93000a",
+                        "inverse-surface": "#e0e2eb",
+                        "tertiary": "#00e0b3",
+                        "on-secondary-fixed": "#21005e",
+                        "on-tertiary-fixed-variant": "#00513f",
+                        "surface-container-low": "#181c22",
+                        "on-primary-fixed": "#001c3a",
+                        "on-background": "#e0e2eb",
+                        "secondary-fixed-dim": "#cebdff",
+                        "on-secondary-fixed-variant": "#4f319c",
+                        "background": "#101419",
+                        "primary-fixed": "#d4e3ff",
+                        "primary-fixed-dim": "#a5c8ff",
+                        "on-secondary-container": "#bea8ff",
+                        "surface-container-lowest": "#0b0e14",
+                        "secondary-fixed": "#e8ddff",
+                        "on-tertiary": "#00382b",
+                        "on-primary-container": "#003465",
+                        "secondary": "#cebdff",
+                        "on-secondary": "#381385",
+                        "surface-dim": "#101419",
+                        "error": "#ffb4ab",
+                        "tertiary-container": "#00b18d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "gutter": "24px",
+                        "margin-desktop": "40px",
+                        "xl": "80px",
+                        "base": "8px",
+                        "margin-mobile": "16px",
+                        "lg": "48px",
+                        "xs": "4px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "label-sm": ["JetBrains Mono"],
+                        "display-lg": ["Plus Jakarta Sans"],
+                        "headline-md": ["Plus Jakarta Sans"],
+                        "display-lg-mobile": ["Plus Jakarta Sans"],
+                        "code-block": ["JetBrains Mono"],
+                        "body-lg": ["Geist"],
+                        "body-md": ["Geist"]
+                    },
+                    "fontSize": {
+                        "label-sm": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "headline-md": ["24px", {"lineHeight": "1.3", "fontWeight": "600"}],
+                        "display-lg-mobile": ["32px", {"lineHeight": "1.2", "fontWeight": "700"}],
+                        "code-block": ["14px", {"lineHeight": "1.7", "fontWeight": "400"}],
+                        "body-lg": ["18px", {"lineHeight": "1.6", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "1.6", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface selection:bg-primary/30">
+<div class="noise-overlay"></div>
+<!-- Background Animation (The Knowledge Graph Core) -->
+<div class="fixed inset-0 z-0">
+
+<div class="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/50"></div>
+</div>
+<!-- Top Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl border-b border-white/10 flex justify-between items-center px-gutter h-16 shadow-[inset_0_0_12px_rgba(79,158,255,0.1)]">
+<div class="flex items-center gap-sm">
+<span class="font-display-lg text-display-lg-mobile tracking-tighter text-primary">PKE</span>
+</div>
+<div class="hidden md:flex items-center gap-lg">
+<nav class="flex gap-md">
+<a class="text-on-surface-variant hover:bg-white/5 transition-colors duration-300 font-body-md text-body-md px-sm py-1 rounded" href="#">Engine</a>
+<a class="text-primary font-bold border-b-2 border-primary font-body-md text-body-md px-sm py-1" href="#">Graph</a>
+<a class="text-on-surface-variant hover:bg-white/5 transition-colors duration-300 font-body-md text-body-md px-sm py-1 rounded" href="#">Archive</a>
+</nav>
+<div class="relative group">
+<input class="bg-surface-container-low border border-outline-variant/30 rounded-full px-md py-1 text-label-sm font-label-sm focus:outline-none focus:border-primary w-64 transition-all" placeholder="Quantum search..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1.5 text-outline text-sm">search</span>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-white/5 p-sm rounded-full transition-all active:scale-95">settings</button>
+<button class="material-symbols-outlined text-on-surface-variant hover:bg-white/5 p-sm rounded-full transition-all active:scale-95">account_circle</button>
+</div>
+</header>
+<!-- Sidebar Navigation -->
+<aside class="fixed left-0 top-0 h-full w-[280px] z-40 bg-surface-container-low/40 backdrop-blur-2xl border-r border-white/5 flex flex-col py-lg pt-24 shadow-2xl">
+<div class="px-md mb-lg">
+<div class="flex items-center gap-sm mb-xs">
+<div class="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-secondary-container p-[1px]">
+<img alt="User profile nebula" class="w-full h-full rounded-full object-cover" data-alt="A futuristic circular portrait of a digital intelligence avatar, rendered in deep blues and violets with swirling nebula patterns inside. The character looks high-tech and ethereal, with soft glowing accents of electric blue. High-key focus on cinematic quality and cosmic atmosphere." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1CDGD--Q0ZmRNpGgryFNjT7tjoOOYXZxw7ItmudwUjwyo3MZZRk7RQ7uNClTr5wXZ38yl4R3Z11mnS2BnlcjQGlgnPl6-R_M_YYirJvO0m3xd_AEoU7nYk-ptVM8OPUOAaUQhUP-PvFuKSH5YN1dA8W3Z-11n8VkF97huR5MMx9qOcENsQyUSDhqRFwx4M4AjZVi9kxU-QFIAHDGAmVNjMGLO8pe1j3KCvqXxipo7kcvHlfdFjzKEhDMSKdUpTay4M36DkT-3-5o"/>
+</div>
+<div>
+<h3 class="font-headline-md text-[14px] leading-tight text-primary">Personal Knowledge Engine</h3>
+<p class="font-label-sm text-[10px] text-tertiary uppercase tracking-widest">Cosmic Intelligence Active</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-sm space-y-1">
+<a class="flex items-center gap-sm bg-primary/10 text-primary rounded-lg px-md py-sm border border-primary/20 hover:translate-x-1 duration-300" href="#">
+<span class="material-symbols-outlined">hub</span>
+<span class="font-label-sm text-label-sm">Knowledge Graph</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-white/5 transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-sm text-label-sm">Documents</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-white/5 transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-sm text-label-sm">Chat History</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-white/5 transition-all duration-200 hover:translate-x-1" href="#">
+<span class="material-symbols-outlined">terminal</span>
+<span class="font-label-sm text-label-sm">System Logs</span>
+</a>
+</nav>
+<div class="px-md mb-md">
+<button class="w-full py-sm bg-primary text-on-primary font-bold rounded-lg text-label-sm uppercase tracking-tighter hover:brightness-110 active:scale-[0.98] transition-all">
+                New Research Session
+            </button>
+</div>
+<div class="px-sm pt-md border-t border-white/5">
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-sm text-label-sm">Help</span>
+</a>
+<a class="flex items-center gap-sm text-on-surface-variant px-md py-sm hover:bg-white/5 transition-all duration-200" href="#">
+<span class="material-symbols-outlined">sensors</span>
+<span class="font-label-sm text-label-sm">Status</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="ml-[280px] mt-16 relative h-[calc(100vh-64px)] overflow-hidden">
+<!-- Left Floating Control Overlay -->
+<div class="absolute left-md top-md w-72 flex flex-col gap-md z-30">
+<!-- Search / Filter -->
+<div class="crystalline-glass p-sm rounded-xl">
+<div class="relative">
+<input class="w-full bg-black/20 border border-white/10 rounded-lg px-md py-2 text-body-md font-body-md focus:outline-none focus:border-primary/50 text-on-surface" placeholder="Filter nodes..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-2.5 text-on-surface-variant text-sm">filter_list</span>
+</div>
+</div>
+<!-- Stats Card -->
+<div class="crystalline-glass p-md rounded-xl">
+<div class="flex justify-between items-center mb-sm">
+<h4 class="font-label-sm text-label-sm text-outline uppercase tracking-wider">Engine Stats</h4>
+<span class="material-symbols-outlined text-tertiary-fixed text-sm">analytics</span>
+</div>
+<div class="grid grid-cols-3 gap-xs">
+<div class="text-center">
+<div class="text-headline-md font-headline-md text-primary">24</div>
+<div class="text-[10px] text-outline uppercase font-label-sm">Nodes</div>
+</div>
+<div class="text-center">
+<div class="text-headline-md font-headline-md text-tertiary">142</div>
+<div class="text-[10px] text-outline uppercase font-label-sm">Links</div>
+</div>
+<div class="text-center">
+<div class="text-headline-md font-headline-md text-secondary">8</div>
+<div class="text-[10px] text-outline uppercase font-label-sm">Clusters</div>
+</div>
+</div>
+</div>
+<!-- Cluster List -->
+<div class="crystalline-glass p-md rounded-xl flex-1 max-h-[400px] overflow-y-auto">
+<h4 class="font-label-sm text-label-sm text-outline uppercase tracking-wider mb-md">Active Clusters</h4>
+<div class="space-y-md">
+<div class="flex items-center gap-sm group cursor-pointer">
+<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(79,158,255,0.8)]"></div>
+<div class="flex-1">
+<div class="font-body-md text-body-md group-hover:text-primary transition-colors">Research Hub</div>
+<div class="text-[10px] text-outline font-label-sm">12 Entities Attached</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-primary text-sm">chevron_right</span>
+</div>
+<div class="flex items-center gap-sm group cursor-pointer">
+<div class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_8px_rgba(0,224,179,0.8)]"></div>
+<div class="flex-1">
+<div class="font-body-md text-body-md group-hover:text-tertiary transition-colors">Legal Documents</div>
+<div class="text-[10px] text-outline font-label-sm">45 Files Indexing</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-tertiary text-sm">chevron_right</span>
+</div>
+<div class="flex items-center gap-sm group cursor-pointer">
+<div class="w-2 h-2 rounded-full bg-secondary shadow-[0_0_8px_rgba(206,189,255,0.8)]"></div>
+<div class="flex-1">
+<div class="font-body-md text-body-md group-hover:text-secondary transition-colors">Technical Specs</div>
+<div class="text-[10px] text-outline font-label-sm">8 Schematics</div>
+</div>
+<span class="material-symbols-outlined text-outline group-hover:text-secondary text-sm">chevron_right</span>
+</div>
+<div class="flex items-center gap-sm opacity-50">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+<div class="flex-1">
+<div class="font-body-md text-body-md">Draft Entities</div>
+<div class="text-[10px] text-outline font-label-sm">Disconnected</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Sidebar Drawer (Collapsed state indicator) -->
+<div class="absolute right-0 top-0 h-full w-80 bg-surface-container-high/60 backdrop-blur-3xl border-l border-white/10 z-30 translate-x-full transition-transform duration-500 ease-in-out" id="right-drawer">
+<div class="p-md h-full flex flex-col">
+<div class="flex justify-between items-center mb-lg">
+<h3 class="font-headline-md text-headline-md text-on-surface">Graph Explorer</h3>
+<button class="material-symbols-outlined hover:bg-white/5 p-xs rounded-full" onclick="toggleDrawer()">close</button>
+</div>
+<div class="space-y-lg overflow-y-auto pr-2">
+<div>
+<h4 class="font-label-sm text-label-sm text-primary uppercase mb-md">Relationship Mapping</h4>
+<div class="space-y-sm">
+<div class="p-sm bg-white/5 border border-white/5 rounded-lg">
+<p class="text-[11px] text-outline font-label-sm mb-1">Direct Link (Strong)</p>
+<p class="font-body-md text-sm">Quantum Field Theory → Neural Synapse</p>
+</div>
+<div class="p-sm bg-white/5 border border-white/5 rounded-lg">
+<p class="text-[11px] text-outline font-label-sm mb-1">Inferred Link (Weak)</p>
+<p class="font-body-md text-sm">Project X-Alpha → Legal Compliance</p>
+</div>
+</div>
+</div>
+<div>
+<h4 class="font-label-sm text-label-sm text-secondary uppercase mb-md">Semantic Proximity</h4>
+<div class="h-32 w-full bg-black/40 rounded-xl border border-white/5 flex items-center justify-center p-md">
+<div class="relative w-full h-full">
+<div class="absolute inset-0 flex items-center justify-center">
+<div class="w-16 h-16 rounded-full border border-primary/30 flex items-center justify-center active-pulse">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+</div>
+<div class="absolute top-2 left-4 w-1 h-1 bg-tertiary rounded-full"></div>
+<div class="absolute bottom-4 right-8 w-1 h-1 bg-secondary rounded-full"></div>
+<div class="absolute top-10 right-10 w-1 h-1 bg-error rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Drawer Toggle Button -->
+<button class="absolute right-4 top-1/2 -translate-y-1/2 crystalline-glass p-sm rounded-full z-40 group hover:bg-primary/20 transition-all active:scale-95" onclick="toggleDrawer()">
+<span class="material-symbols-outlined text-primary group-hover:scale-110 transition-transform">keyboard_double_arrow_left</span>
+</button>
+<!-- Bottom Node Insights Panel -->
+<div class="absolute bottom-md left-md right-md flex justify-center z-30 pointer-events-none">
+<div class="crystalline-glass p-lg rounded-2xl w-full max-w-4xl pointer-events-auto flex gap-lg items-center shadow-2xl">
+<div class="w-24 h-24 rounded-xl bg-surface-container-highest overflow-hidden shrink-0 border border-white/10 group relative">
+<img alt="Selected Document Preview" class="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" data-alt="A detailed, high-contrast close-up of a digital motherboard with glowing light pathways that look like neural networks. The aesthetic is deep space cyberpunk with electric blue and neon violet highlights. Sharp focus on technical details and glowing fiber optic filaments." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBukXaH89nmha1yfhzucOq3_LBgBrgA-g--oaPT7VYdf03Xh4jFhmJ6FuKBdloM-D2POX3XlnAKjEp-WIDTWXHAlKATjhfRZx5zr1ZIrUH15-0ZYEe57sLA6TurC7Unr02SkLlVyl3uPUX8Mapc_-3F7SRaS_6Efpk3L5t0rZ801nkmYA8a3_NppZSxgz1kk8tKQ4mDmKTLDcKarNSIiGCtBt8kk9_5oSgmZha5yHI7bvCAZrtO13w4FKvP6Dzbl-mdp5Hz-kdXBtk"/>
+<div class="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
+</div>
+<div class="flex-1">
+<div class="flex items-center gap-sm mb-xs">
+<span class="px-2 py-0.5 bg-tertiary/10 text-tertiary text-[10px] font-label-sm rounded border border-tertiary/20 uppercase">Document Node</span>
+<span class="text-outline text-[12px] font-label-sm">ID: 0x9823-AF</span>
+</div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-xs">Neural Synapse Mapping - v2.4</h2>
+<p class="font-body-md text-body-md text-on-surface-variant line-clamp-2 max-w-2xl">
+                        A foundational document exploring the intersection of quantum entanglement and artificial neural pathways. This research node connects to 12 other clusters.
+                    </p>
+</div>
+<div class="flex flex-col gap-sm">
+<button class="px-md py-sm bg-primary text-on-primary font-bold rounded-lg text-label-sm uppercase hover:shadow-[0_0_15px_rgba(79,158,255,0.4)] transition-all">Open Full Entry</button>
+<button class="px-md py-sm border border-white/20 text-on-surface font-bold rounded-lg text-label-sm uppercase hover:bg-white/5 transition-all">Relate to cluster</button>
+</div>
+</div>
+</div>
+</main>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('right-drawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        // Micro-interaction: Mouse parallax for the grain
+        document.addEventListener('mousemove', (e) => {
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            const noise = document.querySelector('.noise-overlay');
+            noise.style.transform = `translate(${x * 5}px, ${y * 5}px)`;
+        });
+
+        // Simulating node selection effect
+        document.querySelectorAll('.group').forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                // Potential to trigger shader highlights via events if needed
+            });
+        });
+    </script>
+</body></html>

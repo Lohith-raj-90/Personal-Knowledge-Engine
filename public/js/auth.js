@@ -1,0 +1,39 @@
+const TOKEN_KEY = 'pke_token';
+
+export function getToken() {
+    return localStorage.getItem(TOKEN_KEY);
+}
+
+export function setToken(token) {
+    localStorage.setItem(TOKEN_KEY, token);
+}
+
+export function clearToken() {
+    localStorage.removeItem(TOKEN_KEY);
+}
+
+export function isAuthenticated() {
+    const token = getToken();
+    if (!token) return false;
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return payload.exp * 1000 > Date.now();
+    } catch {
+        return false;
+    }
+}
+
+export function getUser() {
+    const token = getToken();
+    if (!token) return null;
+    try {
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        return { id: payload.id, email: payload.email, name: payload.name };
+    } catch {
+        return null;
+    }
+}
+
+export function logout() {
+    clearToken();
+}

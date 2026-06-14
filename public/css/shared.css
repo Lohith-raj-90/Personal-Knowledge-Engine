@@ -1,0 +1,154 @@
+.grain-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+}
+
+.glass-card {
+    background: rgba(28, 32, 37, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(79, 158, 255, 0.1);
+    border-radius: 16px;
+}
+
+.glass-card:hover {
+    border-color: rgba(79, 158, 255, 0.3);
+    background: rgba(28, 32, 37, 0.8);
+}
+
+.glass-panel {
+    background: rgba(28, 32, 37, 0.6);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+}
+
+.luminous-glow {
+    box-shadow: 0 0 40px -10px rgba(165, 200, 255, 0.2);
+}
+
+.core-glow {
+    background: radial-gradient(circle at 50% 50%, rgba(79, 158, 255, 0.1) 0%, transparent 70%);
+}
+
+.text-glow {
+    text-shadow: 0 0 40px rgba(79, 158, 255, 0.5);
+}
+
+.gradient-text {
+    background: linear-gradient(135deg, #4f9eff, #cebdff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.mesh-gradient-bg {
+    background:
+        radial-gradient(circle at 20% 20%, rgba(79, 158, 255, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(167, 139, 250, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(206, 189, 255, 0.08) 0%, transparent 50%);
+    animation: mesh 15s ease infinite;
+}
+
+@keyframes mesh {
+    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 50%; }
+    50% { background-position: 100% 100%, 0% 0%, 50% 50%; }
+}
+
+.input-focus-glow:focus-within {
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.2);
+    border-color: #A78BFA;
+}
+
+.gradient-input-border {
+    position: relative;
+}
+
+.gradient-input-border::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 28px;
+    padding: 1px;
+    background: linear-gradient(135deg, #4f9eff, #cebdff, #ffb867);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.3;
+    transition: opacity 0.3s;
+}
+
+.gradient-input-border:focus-within::before {
+    opacity: 0.8;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: #31353a;
+    border-radius: 3px;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.material-symbols-outlined.filled {
+    font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+body {
+    scrollbar-width: thin;
+    scrollbar-color: #31353a transparent;
+}
+
+@keyframes pulse-cyan {
+    0%, 100% { box-shadow: 0 0 4px rgba(40, 255, 205, 0.4); }
+    50% { box-shadow: 0 0 10px rgba(40, 255, 205, 0.6); }
+}
+
+.active-pulse {
+    animation: pulse-cyan 2s infinite;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+    animation: float 3s ease-in-out infinite;
+}
+
+.tilt-card {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tilt-card:hover {
+    transform: perspective(1000px) rotateY(8deg) rotateX(-4deg) translateY(-4px);
+}
+
+.crystalline-glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 0 12px rgba(79, 158, 255, 0.05);
+}

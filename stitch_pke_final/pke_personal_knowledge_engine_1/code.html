@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>PKE - Your Knowledge, Supercharged</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;family=Sora:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<style>body {
+    background-color: #020408;
+    color: #e0e2eb;
+    overflow-x: hidden
+    }
+.glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease
+    }
+.glass-card:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: #4f9eff;
+    box-shadow: 0 0 20px rgba(79, 158, 255, 0.2)
+    }
+.luminous-border {
+    border: 1px solid;
+    border-image-source: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0.05) 100%);
+    border-image-slice: 1
+    }
+.core-glow {
+    background: radial-gradient(circle at center, rgba(79, 158, 255, 0.15) 0%, transparent 70%)
+    }
+.grain-texture {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 0.02;
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuDdMaZUxYaoEXRgogzIVgjaODGEGVqO-TXawYci02XnadYjNmkbb6l_OLCwIkENy5DfsEesT90PSYJntiOwFXV7fuS0NKZoLQhLpq6iYQxU7KvJkp5idmdFr_gyf7iJOhTuEEm_hXknJETJguUuxpkJRIBKajsqSGpIc2DiOkofi2BHkGKH8cYgmOQi5S8w3GsxpYtnYnVs6T_-MRp_XQVvijBArgjRYIkfB0tH1vlUhcf_ocHoRHs-pXzr8InimtqfXIBHo4Pjjck)
+    }
+.material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24
+    }
+.text-glow {
+    text-shadow: 0 0 15px rgba(165, 200, 255, 0.4)
+    }
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+        } 50% {
+        transform: translateY(-10px);
+        } 100% {
+        transform: translateY(0px);
+        }
+    }
+.animate-float {
+    animation: float 6s ease-in-out infinite
+    }</style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "secondary-container": "#4f319c",
+                      "surface-container-highest": "#31353c",
+                      "primary-container": "#4f9eff",
+                      "on-tertiary-fixed": "#2b1700",
+                      "on-surface": "#e0e2eb",
+                      "outline": "#8b919e",
+                      "on-error": "#690005",
+                      "inverse-on-surface": "#2d3137",
+                      "tertiary-fixed": "#ffddba",
+                      "surface-tint": "#a5c8ff",
+                      "surface": "#101419",
+                      "outline-variant": "#414752",
+                      "surface-bright": "#363940",
+                      "on-tertiary-container": "#4d2c00",
+                      "tertiary-fixed-dim": "#ffb867",
+                      "on-error-container": "#ffdad6",
+                      "surface-container-high": "#262a31",
+                      "on-primary": "#00315f",
+                      "on-primary-fixed-variant": "#004786",
+                      "on-surface-variant": "#c1c7d4",
+                      "error-container": "#93000a",
+                      "surface-container": "#1c2026",
+                      "primary": "#a5c8ff",
+                      "inverse-primary": "#005faf",
+                      "surface-variant": "#31353c",
+                      "on-secondary-fixed": "#21005e",
+                      "inverse-surface": "#e0e2eb",
+                      "tertiary": "#ffb867",
+                      "on-primary-fixed": "#001c3a",
+                      "on-tertiary-fixed-variant": "#673d00",
+                      "surface-container-low": "#181c22",
+                      "on-secondary-fixed-variant": "#4f319c",
+                      "on-background": "#e0e2eb",
+                      "secondary-fixed-dim": "#cebdff",
+                      "primary-fixed": "#d4e3ff",
+                      "background": "#101419",
+                      "surface-container-lowest": "#0b0e14",
+                      "on-secondary-container": "#bea8ff",
+                      "primary-fixed-dim": "#a5c8ff",
+                      "secondary-fixed": "#e8ddff",
+                      "on-primary-container": "#003465",
+                      "on-tertiary": "#482900",
+                      "on-secondary": "#381385",
+                      "secondary": "#cebdff",
+                      "tertiary-container": "#dd8900",
+                      "surface-dim": "#101419",
+                      "error": "#ffb4ab"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-lg": "32px",
+                      "section-gap": "120px",
+                      "margin-desktop": "64px",
+                      "margin-mobile": "20px",
+                      "stack-sm": "8px",
+                      "gutter": "24px",
+                      "container-max": "1280px",
+                      "stack-md": "16px"
+              },
+              "fontFamily": {
+                      "display-xl-mobile": ["Sora"],
+                      "code-sm": ["Geist"],
+                      "display-xl": ["Sora"],
+                      "headline-md": ["Sora"],
+                      "headline-lg": ["Sora"],
+                      "label-md": ["Plus Jakarta Sans"],
+                      "body-lg": ["Plus Jakarta Sans"],
+                      "body-md": ["Plus Jakarta Sans"]
+              },
+              "fontSize": {
+                      "display-xl-mobile": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "code-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "display-xl": ["72px", {"lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                      "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                      "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                      "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-surface">
+<div class="grain-texture"></div>
+<!-- Navigation Shell -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-white/10 dark:bg-surface/10 backdrop-blur-md border-b border-white/10 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="font-display-xl-mobile text-display-xl-mobile text-primary font-bold tracking-tighter">PKE</span>
+</div>
+<nav class="hidden md:flex gap-stack-lg items-center">
+<a class="font-body-md text-body-md text-primary font-bold transition-colors" href="#">Product</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Features</a>
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">Pricing</a>
+</nav>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-label-md text-label-md font-bold transition-transform hover:scale-105 active:scale-95">
+            Login
+        </button>
+</header>
+<main>
+<!-- Hero Section -->
+<section class="relative min-h-screen flex flex-col items-center justify-center pt-32 px-margin-mobile md:px-margin-desktop overflow-hidden">
+<div class="absolute inset-0 z-0">
+
+<div class="absolute inset-0 core-glow"></div>
+</div>
+<div class="relative z-10 text-center max-w-4xl mx-auto space-y-stack-md">
+<div class="inline-flex items-center px-4 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary font-label-md text-label-md mb-stack-md">
+<span class="animate-pulse mr-2">●</span> The Future of Intelligence
+                </div>
+<h1 class="font-display-xl text-display-xl text-glow leading-tight text-white">
+                    Your Knowledge,<br/><span class="text-primary">Supercharged.</span>
+</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                    The private RAG platform for thinkers, researchers, and teams. Build a personal knowledge engine that grows with every document, chat, and discovery.
+                </p>
+<div class="flex flex-col md:flex-row gap-4 pt-stack-lg justify-center">
+<button class="bg-primary-container text-on-primary-container px-8 py-4 rounded-xl font-headline-md text-headline-md flex items-center gap-2 hover:brightness-110 transition-all">
+                        Get Started Free
+                        <span class="material-symbols-outlined">arrow_forward</span>
+</button>
+<button class="glass-card px-8 py-4 rounded-xl font-headline-md text-headline-md text-white hover:bg-white/10 transition-all">
+                        Watch Demo
+                    </button>
+</div>
+</div>
+<!-- Floating UI Elements for Depth -->
+<div class="hidden lg:block absolute left-margin-desktop top-1/2 -translate-y-1/2 glass-card p-stack-md rounded-xl animate-float" style="animation-delay: -1s;">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">hub</span>
+</div>
+<div>
+<div class="text-sm font-bold">Vector Graph Updated</div>
+<div class="text-xs text-on-surface-variant">42 new connections discovered</div>
+</div>
+</div>
+</div>
+<div class="hidden lg:block absolute right-margin-desktop bottom-1/4 glass-card p-stack-md rounded-xl animate-float" style="animation-delay: -3s;">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-white">security</span>
+</div>
+<div>
+<div class="text-sm font-bold">Privacy Shield Active</div>
+<div class="text-xs text-on-surface-variant">Zero-knowledge encryption</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Feature Grid -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto relative">
+<div class="text-center mb-section-gap">
+<h2 class="font-headline-lg text-headline-lg mb-4">Architected for Discovery</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-xl mx-auto">Our cosmic engine uses advanced retrieval-augmented generation to turn static data into a living intelligence.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<!-- Feature 1 -->
+<div class="glass-card p-stack-lg rounded-2xl group">
+<div class="w-14 h-14 bg-primary/10 rounded-xl flex items-center justify-center mb-stack-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-primary text-3xl">all_inclusive</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-stack-sm">Infinite Connections</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Every document you upload is automatically mapped into a global knowledge graph, revealing hidden patterns and insights.</p>
+</div>
+<!-- Feature 2 -->
+<div class="glass-card p-stack-lg rounded-2xl group border-primary/20 shadow-[0_0_40px_rgba(79,158,255,0.05)]">
+<div class="w-14 h-14 bg-secondary/10 rounded-xl flex items-center justify-center mb-stack-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-secondary text-3xl">groups</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-stack-sm">Team Collaboration</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Shared intelligence for organizations. Collectively build a source of truth that learns from your team's collective expertise.</p>
+</div>
+<!-- Feature 3 -->
+<div class="glass-card p-stack-lg rounded-2xl group">
+<div class="w-14 h-14 bg-tertiary/10 rounded-xl flex items-center justify-center mb-stack-md group-hover:scale-110 transition-transform">
+<span class="material-symbols-outlined text-tertiary text-3xl">encrypted</span>
+</div>
+<h3 class="font-headline-md text-headline-md mb-stack-sm">Secure Intelligence</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">Your data never leaves your control. Private LLM deployment options ensure that your research stays strictly confidential.</p>
+</div>
+</div>
+</section>
+<!-- Interactive 3D Section -->
+<section class="relative h-[2048px]" id="nebula-expand-section">
+<div class="sticky top-0 h-screen w-full flex items-center justify-center overflow-hidden">
+
+<div class="relative z-20 text-center px-margin-mobile">
+<div class="transition-all duration-700 opacity-0 transform translate-y-10" id="expanding-text">
+<h2 class="font-display-xl text-display-xl text-white mb-6">Scale Beyond Limits</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl mx-auto">
+                            As your knowledge base grows, PKE adapts. Our engine processes millions of tokens in milliseconds, providing instant answers across your entire digital archive.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Bento Showcase -->
+<section class="py-section-gap px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-12 grid-rows-2 gap-gutter h-[800px] md:h-[600px]">
+<div class="md:col-span-8 glass-card rounded-3xl p-stack-lg flex flex-col justify-end relative overflow-hidden group">
+<img alt="Knowledge Visualizer" class="absolute inset-0 w-full h-full object-cover mix-blend-overlay opacity-40 group-hover:scale-105 transition-transform duration-700" data-alt="A sophisticated dark-themed user interface showing a complex 3D network graph of connected knowledge nodes. The visualization glows with neon electric blue and soft violet hues against a deep charcoal background. Tiny particles float through the digital space, creating a sense of a living, breathing information organism. The overall mood is futuristic, high-tech, and immersive, reflecting a state-of-the-art research environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuATc_LEukbVcBn3cBae1K4kqj2qHEs9J3vHQJOW0YQs_O2x4G7wcl-iNmZzX24sKhb2VJpruiA72g6Rna1D4CMpPg1eP3XEjDp3C8EzOqNxfNGtBtiyv10xO-0Wu3W-uG__HiEdkFIDXCo4y8rRZCL2gf_-DEIcQp2zHNn8zKBW8hFShKiHRjvu0YubUHXDuBv0r6oZpPD6g-1aPkkz4W3pl3sLBQwJWyZ1vlw_tWJnKMINKxOsUBnplZv8VgzwFQc5KBIvotDSYAQ"/>
+<div class="relative z-10">
+<span class="text-primary font-label-md text-label-md tracking-widest uppercase">The Engine</span>
+<h3 class="font-headline-lg text-headline-lg text-white">Visual Intelligence</h3>
+<p class="text-on-surface-variant max-w-md">Navigate your thoughts with a powerful spatial interface designed for complex problem-solving.</p>
+</div>
+</div>
+<div class="md:col-span-4 glass-card rounded-3xl p-stack-lg flex flex-col items-center justify-center text-center">
+<div class="w-20 h-20 bg-secondary-container/30 rounded-full flex items-center justify-center mb-6">
+<span class="material-symbols-outlined text-secondary text-4xl">psychology</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-white mb-2">Cognitive Link</h3>
+<p class="text-on-surface-variant">Context-aware searching that understands intent, not just keywords.</p>
+</div>
+<div class="md:col-span-4 glass-card rounded-3xl p-stack-lg flex flex-col justify-center">
+<h3 class="font-headline-md text-headline-md text-white mb-2">Zero Latency</h3>
+<p class="text-on-surface-variant">Built on a distributed rust core for sub-100ms response times globally.</p>
+</div>
+<div class="md:col-span-8 glass-card rounded-3xl p-stack-lg bg-primary-container/5 border-primary/20 flex items-center gap-stack-lg">
+<div class="flex-1">
+<h3 class="font-headline-md text-headline-md text-white mb-2">Enterprise Ready</h3>
+<p class="text-on-surface-variant">SSO integration, role-based access control, and complete audit logs for security compliance.</p>
+</div>
+<div class="hidden sm:block">
+<span class="material-symbols-outlined text-6xl text-primary/30">verified_user</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CTA Section -->
+<section class="py-section-gap relative overflow-hidden">
+<div class="absolute inset-0 bg-primary/5 blur-3xl opacity-20"></div>
+<div class="relative z-10 max-w-4xl mx-auto text-center px-margin-mobile">
+<h2 class="font-display-xl-mobile md:font-display-xl text-display-xl-mobile md:text-display-xl text-white mb-stack-md">Ready to illuminate your mind?</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-stack-lg max-w-2xl mx-auto">
+                    Join thousands of researchers and engineers building the future of personal intelligence. Start your journey today.
+                </p>
+<div class="flex flex-col sm:flex-row items-center justify-center gap-stack-md">
+<button class="w-full sm:w-auto bg-primary text-on-primary px-10 py-5 rounded-2xl font-headline-md text-headline-md hover:shadow-[0_0_30px_rgba(165,200,255,0.4)] transition-all">
+                        Start Your Research Journey
+                    </button>
+<button class="w-full sm:w-auto glass-card px-10 py-5 rounded-2xl font-headline-md text-headline-md text-white hover:bg-white/10 transition-all">
+                        Talk to Sales
+                    </button>
+</div>
+<p class="mt-stack-md text-on-surface-variant/60 font-label-md text-label-md">
+                    No credit card required. Free 14-day trial for teams.
+                </p>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-lowest border-t border-outline-variant/10 px-margin-desktop py-section-gap w-full">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter w-full">
+<div class="col-span-1 md:col-span-1">
+<span class="font-headline-md text-headline-md text-on-surface font-bold block mb-4">PKE</span>
+<p class="text-on-surface-variant font-body-md text-body-md opacity-80">Empowering thinkers with cosmic intelligence and secure retrieval technology.</p>
+</div>
+<div>
+<h4 class="text-white font-label-md text-label-md mb-6 uppercase tracking-wider">Product</h4>
+<ul class="space-y-4 text-on-surface-variant font-body-md text-body-md">
+<li><a class="hover:text-primary transition-colors" href="#">Features</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Pricing</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Docs</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-label-md text-label-md mb-6 uppercase tracking-wider">Company</h4>
+<ul class="space-y-4 text-on-surface-variant font-body-md text-body-md">
+<li><a class="hover:text-primary transition-colors" href="#">Privacy</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Terms</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-white font-label-md text-label-md mb-6 uppercase tracking-wider">Social</h4>
+<ul class="space-y-4 text-on-surface-variant font-body-md text-body-md">
+<li><a class="hover:text-primary transition-colors" href="#">Twitter</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">GitHub</a></li>
+<li><a class="hover:text-primary transition-colors" href="#">Discord</a></li>
+</ul>
+</div>
+</div>
+<div class="mt-section-gap pt-stack-lg border-t border-white/5 text-center text-on-surface-variant/40 font-body-md text-body-md">
+            © 2024 PKE Personal Knowledge Engine. All rights reserved.
+        </div>
+</footer>
+<script>
+        // Scroll interaction for the 3D nebula expansion
+        window.addEventListener('scroll', () => {
+            const section = document.getElementById('nebula-expand-section');
+            const text = document.getElementById('expanding-text');
+            const rect = section.getBoundingClientRect();
+            
+            // Calculate scroll progress (0 to 1)
+            const progress = Math.min(Math.max(0, -rect.top / (rect.height - window.innerHeight)), 1);
+            
+            // Trigger text reveal
+            if (progress > 0.3) {
+                text.classList.remove('opacity-0', 'translate-y-10');
+                text.classList.add('opacity-100', 'translate-y-0');
+            } else {
+                text.classList.add('opacity-0', 'translate-y-10');
+                text.classList.remove('opacity-100', 'translate-y-0');
+            }
+        });
+
+        // Simple smooth scrolling for links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body></html>

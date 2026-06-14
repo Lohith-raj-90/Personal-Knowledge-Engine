@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Login | PKE Personal Knowledge Engine</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&amp;family=Plus+Jakarta+Sans:wght@400;500;600&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@100..900&amp;family=Sora:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "secondary-container": "#4f319c",
+                        "surface-container-highest": "#31353c",
+                        "primary-container": "#4f9eff",
+                        "on-tertiary-fixed": "#2b1700",
+                        "on-surface": "#e0e2eb",
+                        "outline": "#8b919e",
+                        "on-error": "#690005",
+                        "inverse-on-surface": "#2d3137",
+                        "tertiary-fixed": "#ffddba",
+                        "surface-tint": "#a5c8ff",
+                        "surface": "#101419",
+                        "outline-variant": "#414752",
+                        "surface-bright": "#363940",
+                        "on-tertiary-container": "#4d2c00",
+                        "tertiary-fixed-dim": "#ffb867",
+                        "on-error-container": "#ffdad6",
+                        "surface-container-high": "#262a31",
+                        "on-primary": "#00315f",
+                        "on-primary-fixed-variant": "#004786",
+                        "on-surface-variant": "#c1c7d4",
+                        "error-container": "#93000a",
+                        "surface-container": "#1c2026",
+                        "primary": "#a5c8ff",
+                        "inverse-primary": "#005faf",
+                        "surface-variant": "#31353c",
+                        "on-secondary-fixed": "#21005e",
+                        "inverse-surface": "#e0e2eb",
+                        "tertiary": "#ffb867",
+                        "on-primary-fixed": "#001c3a",
+                        "on-tertiary-fixed-variant": "#673d00",
+                        "surface-container-low": "#181c22",
+                        "on-secondary-fixed-variant": "#4f319c",
+                        "on-background": "#e0e2eb",
+                        "secondary-fixed-dim": "#cebdff",
+                        "primary-fixed": "#d4e3ff",
+                        "background": "#101419",
+                        "surface-container-lowest": "#0b0e14",
+                        "on-secondary-container": "#bea8ff",
+                        "primary-fixed-dim": "#a5c8ff",
+                        "secondary-fixed": "#e8ddff",
+                        "on-primary-container": "#003465",
+                        "on-tertiary": "#482900",
+                        "on-secondary": "#381385",
+                        "secondary": "#cebdff",
+                        "tertiary-container": "#dd8900",
+                        "surface-dim": "#101419",
+                        "error": "#ffb4ab"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-lg": "32px",
+                        "section-gap": "120px",
+                        "margin-desktop": "64px",
+                        "margin-mobile": "20px",
+                        "stack-sm": "8px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "stack-md": "16px"
+                    },
+                    "fontFamily": {
+                        "display-xl-mobile": ["Sora"],
+                        "code-sm": ["Geist"],
+                        "display-xl": ["Sora"],
+                        "headline-md": ["Sora"],
+                        "headline-lg": ["Sora"],
+                        "label-md": ["Plus Jakarta Sans"],
+                        "body-lg": ["Plus Jakarta Sans"],
+                        "body-md": ["Plus Jakarta Sans"]
+                    },
+                    "fontSize": {
+                        "display-xl-mobile": ["40px", {"lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "code-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "display-xl": ["72px", {"lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "700"}],
+                        "headline-md": ["32px", {"lineHeight": "40px", "fontWeight": "600"}],
+                        "headline-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "600"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "letterSpacing": "0.02em", "fontWeight": "600"}],
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>.glass-panel {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(20px);
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    border-left: 1px solid rgba(255, 255, 255, 0.15);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    border-right: 1px solid rgba(255, 255, 255, 0.05)
+    }
+.grain-overlay {
+    background-image: url(https://lh3.googleusercontent.com/aida-public/AB6AXuA2B5jhOvcj2s78F9dvhLEA0qtiGszhgZcdUx-q0SawvjuTIXWKqw0-y8ntyezfqIXBzMcXg4UPNIoR7WQQH1J04vfk5hV_QFHkdWmaRgAZPiP4aEFpvyiLhH9w4z0GEi4eqfnA_P4rPI57DwofA2qkIsPQcDmCcpaTu5cfaZILHv5FfQXLiJOF1p0gevbaW3_zJ6z-W0fpYf2aJuUFAPRTabt9ZkheMnSC4xReF61N7N4qVEknumXvjl7ChlvwehsYpbW7e06OgFs);
+    opacity: 0.02;
+    pointer-events: none
+    }
+.mesh-gradient-bg {
+    background-color: #020408;
+    background-image: radial-gradient(at 0% 0%, rgba(79, 158, 255, 0.15) 0, transparent 50%), radial-gradient(at 100% 0%, rgba(167, 139, 250, 0.15) 0, transparent 50%), radial-gradient(at 100% 100%, rgba(79, 158, 255, 0.1) 0, transparent 50%), radial-gradient(at 0% 100%, rgba(167, 139, 250, 0.1) 0, transparent 50%);
+    animation: mesh 15s ease infinite
+    }
+@keyframes mesh {
+    0%, 100% {
+        background-position: 0% 50%;
+        } 50% {
+        background-position: 100% 50%;
+        }
+    }
+.luminous-glow {
+    box-shadow: 0 0 40px -10px rgba(165, 200, 255, 0.2)
+    }
+.input-focus-glow:focus-within {
+    box-shadow: 0 0 15px -3px rgba(167, 139, 250, 0.3);
+    border-color: #A78BFA
+    }</style>
+</head>
+<body class="bg-background text-on-surface font-body-md min-h-screen relative flex flex-col overflow-x-hidden">
+<!-- Grain Texture -->
+<div class="fixed inset-0 grain-overlay z-[1]"></div>
+<!-- Animated Mesh Background -->
+<div class="fixed inset-0 mesh-gradient-bg z-0"></div>
+<!-- Main Content Area -->
+<main class="relative z-10 flex-grow flex items-center justify-center px-margin-mobile py-section-gap">
+<div class="w-full max-w-[440px] glass-panel rounded-xl p-stack-lg luminous-glow flex flex-col items-center">
+<!-- Logo Section -->
+<div class="mb-stack-lg text-center">
+<div class="flex items-center justify-center mb-stack-sm">
+<span class="material-symbols-outlined text-primary text-[48px]" style="font-variation-settings: 'FILL' 1;">hub</span>
+</div>
+<h1 class="font-headline-md text-headline-md text-primary tracking-tight">PKE</h1>
+<p class="font-label-md text-label-md text-on-surface-variant opacity-70">Personal Knowledge Engine</p>
+</div>
+<!-- Login Form -->
+<div class="w-full space-y-gutter">
+<!-- Social Auth Buttons -->
+<div class="space-y-stack-md">
+<button class="w-full flex items-center justify-center gap-stack-md py-3 rounded-lg border border-white/10 hover:bg-white/5 transition-all duration-300 font-label-md text-label-md">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12.48 10.92v3.28h7.84c-.24 1.84-.9 3.16-2 4.16-1.24 1.24-3.12 2.24-5.84 2.24-4.52 0-8.24-3.68-8.24-8.2s3.72-8.2 8.24-8.2c2.4 0 4.2.92 5.56 2.24l2.32-2.32c-1.96-1.88-4.52-3.08-7.88-3.08-6.12 0-11.08 4.96-11.08 11.08s4.96 11.08 11.08 11.08c3.28 0 5.84-1.08 7.84-3.16 2.08-2.08 2.76-5 2.76-7.44 0-.48-.04-1.04-.12-1.52h-10.48z"></path>
+</svg>
+                        Login with Google
+                    </button>
+<button class="w-full flex items-center justify-center gap-stack-md py-3 rounded-lg border border-white/10 hover:bg-white/5 transition-all duration-300 font-label-md text-label-md">
+<svg class="w-5 h-5" fill="currentColor" viewbox="0 0 24 24">
+<path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path>
+</svg>
+                        Login with GitHub
+                    </button>
+</div>
+<!-- Divider -->
+<div class="flex items-center gap-stack-md py-stack-sm">
+<div class="h-[1px] flex-grow bg-outline-variant opacity-30"></div>
+<span class="text-on-surface-variant font-label-md text-label-md opacity-60">or email</span>
+<div class="h-[1px] flex-grow bg-outline-variant opacity-30"></div>
+</div>
+<!-- Credentials Fields -->
+<form class="space-y-stack-md">
+<div class="space-y-stack-sm group">
+<label class="font-label-md text-label-md text-on-surface-variant ml-1" for="email">Email Address</label>
+<div class="relative input-focus-glow rounded-lg transition-all duration-300">
+<input class="w-full bg-white/[0.04] border border-white/10 rounded-lg py-3 px-stack-md text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:ring-0 focus:border-secondary transition-all" id="email" placeholder="explorer@pke.io" type="email"/>
+</div>
+</div>
+<div class="space-y-stack-sm group">
+<div class="flex justify-between items-center px-1">
+<label class="font-label-md text-label-md text-on-surface-variant" for="password">Password</label>
+<a class="font-label-md text-label-md text-primary/70 hover:text-primary transition-colors" href="#">Forgot password?</a>
+</div>
+<div class="relative input-focus-glow rounded-lg transition-all duration-300">
+<input class="w-full bg-white/[0.04] border border-white/10 rounded-lg py-3 px-stack-md text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:ring-0 focus:border-secondary transition-all" id="password" placeholder="••••••••" type="password"/>
+</div>
+</div>
+<button class="w-full mt-stack-lg py-3.5 rounded-lg bg-gradient-to-r from-primary-container to-secondary-container text-on-primary-container font-headline-md text-[16px] font-bold shadow-lg shadow-primary-container/20 hover:scale-[1.02] active:scale-95 transition-all duration-200" type="submit">
+                        Sign In
+                    </button>
+</form>
+<!-- Footer CTA -->
+<div class="pt-stack-md text-center">
+<p class="font-body-md text-body-md text-on-surface-variant opacity-80">
+                        New explorer? 
+                        <a class="text-primary font-semibold hover:underline underline-offset-4 ml-1" href="#">Create an account</a>
+</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer - JSON Source Reference -->
+<footer class="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-desktop py-stack-lg w-full bg-surface-container-lowest border-t border-outline-variant/10">
+<div class="md:col-span-1">
+<span class="font-headline-md text-headline-md text-on-surface">PKE</span>
+</div>
+<div class="md:col-span-3 flex flex-wrap gap-gutter items-center justify-end">
+<span class="text-on-surface-variant opacity-80 font-body-md text-body-md mr-auto">© 2024 PKE Personal Knowledge Engine</span>
+<a class="text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100 font-body-md text-body-md" href="#">Docs</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100 font-body-md text-body-md" href="#">Privacy</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100 font-body-md text-body-md" href="#">Terms</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100 font-body-md text-body-md" href="#">Twitter</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors opacity-80 hover:opacity-100 font-body-md text-body-md" href="#">GitHub</a>
+</div>
+</footer>
+<script>
+        // Simple interactive micro-effects
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.style.transform = 'translateY(-1px)';
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.style.transform = 'translateY(0px)';
+            });
+        });
+
+        // Form submission mock
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<span class="material-symbols-outlined animate-spin">progress_activity</span>';
+            btn.disabled = true;
+            
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                alert('Authentication system mock: Secure token requested.');
+            }, 1500);
+        });
+    </script>
+</body></html>
