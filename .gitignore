@@ -1,0 +1,8 @@
+node_modules/
+server/node_modules/
+.env
+server/pke.db
+server/uploads/
+server/*.log
+*.log
+.DS_Store

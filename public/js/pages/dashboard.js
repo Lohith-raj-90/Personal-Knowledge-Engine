@@ -11,28 +11,12 @@ export default {
         return `
         ${renderSidebar('dashboard')}
         ${renderHeader('PKE Engine')}
-        <div id="upload-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
-            <div class="glass-panel p-8 w-full max-w-lg mx-4">
-                <h3 class="font-heading font-semibold text-xl mb-4">Upload Documents</h3>
-                <div id="drop-zone" class="border-2 border-dashed border-white/10 rounded-xl p-10 text-center hover:border-primary/30 transition-colors cursor-pointer">
-                    <span class="material-symbols-outlined text-4xl text-on-surface-variant/50 block mb-2">cloud_upload</span>
-                    <p class="text-on-surface-variant text-sm">Drop files here or click to browse</p>
-                    <p class="text-on-surface-variant/50 text-xs mt-1">PDF, DOCX, TXT (max 50MB)</p>
-                    <input type="file" id="file-input" class="hidden" accept=".pdf,.docx,.txt" multiple>
-                </div>
-                <div id="upload-status" class="mt-4 text-sm text-on-surface-variant hidden"></div>
-                <div class="flex justify-end gap-3 mt-6">
-                    <button onclick="document.getElementById('upload-modal').classList.add('hidden')" class="px-4 py-2 rounded-lg text-sm text-on-surface-variant hover:bg-surface-container-high/50">Cancel</button>
-                    <button id="upload-btn" class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:brightness-110" disabled>Upload</button>
-                </div>
-            </div>
-        </div>
         <main class="ml-[280px] mt-16 h-[calc(100vh-64px)] flex flex-col">
             <div id="chat-messages" class="flex-1 overflow-y-auto custom-scrollbar p-6 space-y-4"></div>
             <div id="empty-state" class="flex-1 flex flex-col items-center justify-center px-6">
                 <div id="threejs-container" class="w-64 h-64 mb-6"></div>
                 <div class="core-glow absolute w-64 h-64 rounded-full opacity-50"></div>
-                <h2 class="font-heading font-bold text-2xl mb-2 animate-fade-up">Ask anything about <span class="gradient-text">your documents</span></h2>
+                <h2 class="font-display font-bold text-2xl mb-2 animate-fade-up">Ask anything about <span class="gradient-text">your documents</span></h2>
                 <p class="text-on-surface-variant text-sm mb-6 animate-fade-up" style="animation-delay:0.1s">Upload documents and get AI-powered insights</p>
                 <div class="flex flex-wrap justify-center gap-3 animate-fade-up" style="animation-delay:0.2s">
                     <button onclick="window._pkeSuggestion('Summarize the key points of my documents')" class="flex items-center gap-2 px-4 py-2 rounded-full bg-surface-container-high/60 border border-white/5 text-sm text-on-surface-variant hover:border-primary/30 transition-all">
@@ -182,48 +166,4 @@ async function sendChatMessage(content) {
     }
 }
 
-function setupUpload() {
-    const dropZone = document.getElementById('drop-zone');
-    const fileInput = document.getElementById('file-input');
-    const uploadBtn = document.getElementById('upload-btn');
-    const status = document.getElementById('upload-status');
-    let selectedFiles = [];
 
-    dropZone.addEventListener('click', () => fileInput.click());
-    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-primary/50'); });
-    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('border-primary/50'));
-    dropZone.addEventListener('drop', (e) => {
-        e.preventDefault();
-        dropZone.classList.remove('border-primary/50');
-        selectedFiles = [...e.dataTransfer.files];
-        updateUploadUI();
-    });
-    fileInput.addEventListener('change', () => {
-        selectedFiles = [...fileInput.files];
-        updateUploadUI();
-    });
-
-    function updateUploadUI() {
-        status.classList.remove('hidden');
-        status.textContent = `${selectedFiles.length} file(s) selected`;
-        uploadBtn.disabled = !selectedFiles.length;
-    }
-
-    uploadBtn.addEventListener('click', async () => {
-        uploadBtn.disabled = true;
-        uploadBtn.textContent = 'Uploading...';
-        for (const file of selectedFiles) {
-            const fd = new FormData();
-            fd.append('file', file);
-            try {
-                await api.upload('/documents', fd);
-            } catch {}
-        }
-        selectedFiles = [];
-        document.getElementById('upload-modal').classList.add('hidden');
-        uploadBtn.textContent = 'Upload';
-        status.classList.add('hidden');
-        loadDocs();
-        window.showToast('Documents uploaded successfully', 'success');
-    });
-}

@@ -11,7 +11,7 @@ export default {
             <div class="glass-panel p-10 w-full max-w-md luminous-glow">
                 <div class="text-center mb-8">
                     <span class="material-symbols-outlined filled text-primary text-5xl block mb-3">hub</span>
-                    <h1 class="font-heading font-bold text-2xl">PKE</h1>
+                    <h1 class="font-display font-bold text-2xl">PKE</h1>
                     <p class="text-on-surface-variant text-sm mt-1">Create your account</p>
                 </div>
                 <form id="signup-form" class="space-y-4">

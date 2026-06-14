@@ -23,9 +23,9 @@ export default {
                 <div class="crystalline-glass rounded-xl p-4">
                     <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-3">Engine Stats</p>
                     <div class="grid grid-cols-3 gap-3 text-center">
-                        <div><p class="text-xl font-heading font-bold text-primary" id="stat-nodes">0</p><p class="text-[10px] text-on-surface-variant/50">Nodes</p></div>
-                        <div><p class="text-xl font-heading font-bold text-secondary" id="stat-edges">0</p><p class="text-[10px] text-on-surface-variant/50">Links</p></div>
-                        <div><p class="text-xl font-heading font-bold text-tertiary" id="stat-clusters">0</p><p class="text-[10px] text-on-surface-variant/50">Clusters</p></div>
+                        <div><p class="text-xl font-display font-bold text-primary" id="stat-nodes">0</p><p class="text-[10px] text-on-surface-variant/50">Nodes</p></div>
+                        <div><p class="text-xl font-display font-bold text-secondary" id="stat-edges">0</p><p class="text-[10px] text-on-surface-variant/50">Links</p></div>
+                        <div><p class="text-xl font-display font-bold text-tertiary" id="stat-clusters">0</p><p class="text-[10px] text-on-surface-variant/50">Clusters</p></div>
                     </div>
                 </div>
                 <div class="crystalline-glass rounded-xl p-4">
@@ -43,7 +43,7 @@ export default {
                             <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-primary/10 text-primary">Document Node</span>
                             <span class="text-[10px] font-mono text-on-surface-variant/40" id="detail-id"></span>
                         </div>
-                        <h3 class="font-heading font-semibold" id="detail-title"></h3>
+                        <h3 class="font-display font-semibold" id="detail-title"></h3>
                         <p class="text-sm text-on-surface-variant mt-1" id="detail-content"></p>
                     </div>
                     <button onclick="document.getElementById('node-detail').classList.add('hidden')" class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined">close</span></button>
@@ -54,7 +54,7 @@ export default {
             </button>
             <div id="cluster-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
                 <div class="glass-panel p-8 w-full max-w-md mx-4">
-                    <h3 class="font-heading font-semibold text-xl mb-4">New Cluster</h3>
+                    <h3 class="font-display font-semibold text-xl mb-4">New Cluster</h3>
                     <input id="cluster-name" type="text" placeholder="Cluster name" class="w-full px-4 py-2.5 bg-surface-container/60 border border-white/10 rounded-lg text-sm outline-none mb-3">
                     <input id="cluster-color" type="color" value="#4f9eff" class="w-full h-10 rounded-lg cursor-pointer mb-4">
                     <div class="flex justify-end gap-3">
@@ -65,7 +65,7 @@ export default {
             </div>
             <div id="node-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
                 <div class="glass-panel p-8 w-full max-w-md mx-4">
-                    <h3 class="font-heading font-semibold text-xl mb-4">New Node</h3>
+                    <h3 class="font-display font-semibold text-xl mb-4">New Node</h3>
                     <input id="node-title" type="text" placeholder="Node title" class="w-full px-4 py-2.5 bg-surface-container/60 border border-white/10 rounded-lg text-sm outline-none mb-3">
                     <textarea id="node-content" placeholder="Content" class="w-full px-4 py-2.5 bg-surface-container/60 border border-white/10 rounded-lg text-sm outline-none mb-3 h-24 resize-none"></textarea>
                     <select id="node-type" class="w-full px-4 py-2.5 bg-surface-container/60 border border-white/10 rounded-lg text-sm outline-none mb-3">

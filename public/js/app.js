@@ -1,5 +1,6 @@
 import { initRouter, register, navigate } from './router.js';
 import { isAuthenticated } from './auth.js';
+import { setupUpload } from './components/sidebar.js';
 
 function showToast(message, type = 'info') {
     const container = document.getElementById('toast-container');
@@ -33,6 +34,7 @@ function authGuard(loader) {
                     return;
                 }
                 if (mod.mount) await mod.mount(ctx);
+                setupUpload();
             }
         };
     };

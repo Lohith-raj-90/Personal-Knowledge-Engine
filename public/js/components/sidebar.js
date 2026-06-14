@@ -1,5 +1,6 @@
 import { getUser, logout } from '../auth.js';
 import { navigate } from '../router.js';
+import { api } from '../api.js';
 
 export function renderSidebar(activePage) {
     const user = getUser();
@@ -17,7 +18,7 @@ export function renderSidebar(activePage) {
             <div class="flex items-center gap-3 mb-4">
                 <span class="material-symbols-outlined filled text-primary text-2xl">hub</span>
                 <div>
-                    <span class="font-heading font-bold text-lg">PKE</span>
+                    <span class="font-display font-bold text-lg">PKE</span>
                     <p class="text-[10px] text-on-surface-variant font-mono">Vast Intelligence</p>
                 </div>
             </div>
@@ -62,7 +63,69 @@ export function renderSidebar(activePage) {
                 </button>
             </div>
         </div>
-    </aside>`;
+    </aside>
+    <div id="upload-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
+        <div class="glass-panel p-8 w-full max-w-lg mx-4">
+            <h3 class="font-display font-semibold text-xl mb-4">Upload Documents</h3>
+            <div id="drop-zone" class="border-2 border-dashed border-white/10 rounded-xl p-10 text-center hover:border-primary/30 transition-colors cursor-pointer">
+                <span class="material-symbols-outlined text-4xl text-on-surface-variant/50 block mb-2">cloud_upload</span>
+                <p class="text-on-surface-variant text-sm">Drop files here or click to browse</p>
+                <p class="text-on-surface-variant/50 text-xs mt-1">PDF, DOCX, TXT (max 50MB)</p>
+                <input type="file" id="file-input" class="hidden" accept=".pdf,.docx,.txt" multiple>
+            </div>
+            <div id="upload-status" class="mt-4 text-sm text-on-surface-variant hidden"></div>
+            <div class="flex justify-end gap-3 mt-6">
+                <button onclick="document.getElementById('upload-modal').classList.add('hidden')" class="px-4 py-2 rounded-lg text-sm text-on-surface-variant hover:bg-surface-container-high/50">Cancel</button>
+                <button id="upload-btn" class="px-4 py-2 rounded-lg bg-primary text-white text-sm font-medium hover:brightness-110" disabled>Upload</button>
+            </div>
+        </div>
+    </div>`;
+}
+
+export function setupUpload() {
+    const dropZone = document.getElementById('drop-zone');
+    const fileInput = document.getElementById('file-input');
+    const uploadBtn = document.getElementById('upload-btn');
+    const status = document.getElementById('upload-status');
+    if (!dropZone || !fileInput || !uploadBtn || !status) return;
+    let selectedFiles = [];
+
+    dropZone.addEventListener('click', () => fileInput.click());
+    dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('border-primary/50'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('border-primary/50'));
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('border-primary/50');
+        selectedFiles = [...e.dataTransfer.files];
+        updateUploadUI();
+    });
+    fileInput.addEventListener('change', () => {
+        selectedFiles = [...fileInput.files];
+        updateUploadUI();
+    });
+
+    function updateUploadUI() {
+        status.classList.remove('hidden');
+        status.textContent = `${selectedFiles.length} file(s) selected`;
+        uploadBtn.disabled = !selectedFiles.length;
+    }
+
+    uploadBtn.addEventListener('click', async () => {
+        uploadBtn.disabled = true;
+        uploadBtn.textContent = 'Uploading...';
+        for (const file of selectedFiles) {
+            const fd = new FormData();
+            fd.append('file', file);
+            try {
+                await api.upload('/documents', fd);
+            } catch {}
+        }
+        selectedFiles = [];
+        document.getElementById('upload-modal').classList.add('hidden');
+        uploadBtn.textContent = 'Upload';
+        status.classList.add('hidden');
+        window.showToast('Documents uploaded successfully', 'success');
+    });
 }
 
 window._pkeLogout = () => {

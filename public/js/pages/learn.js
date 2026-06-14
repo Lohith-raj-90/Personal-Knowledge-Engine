@@ -13,7 +13,7 @@ export default {
         ${renderSidebar('learn')}
         <main class="ml-[280px] h-screen flex flex-col overflow-hidden">
             <header class="h-16 border-b border-white/5 flex items-center justify-between px-6 bg-surface/80 backdrop-blur-xl">
-                <h1 class="font-heading font-semibold text-lg">Learning Hub</h1>
+                <h1 class="font-display font-semibold text-lg">Learning Hub</h1>
                 <div class="flex items-center gap-3">
                     <div class="relative">
                         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant/40 text-lg">search</span>
@@ -26,20 +26,20 @@ export default {
             <div class="flex-1 overflow-y-auto custom-scrollbar">
                 <div class="core-glow h-40 flex items-center px-8">
                     <div>
-                        <h2 class="font-heading font-bold text-3xl mb-1">Learning Hub</h2>
+                        <h2 class="font-display font-bold text-3xl mb-1">Learning Hub</h2>
                         <p class="text-on-surface-variant text-sm">Master concepts through structured learning paths and spaced repetition.</p>
                     </div>
                 </div>
                 <div class="px-8 pb-8 space-y-8">
                     <section>
                         <div class="flex items-center justify-between mb-4">
-                            <h3 class="font-heading font-semibold text-lg">Learning Paths</h3>
+                            <h3 class="font-display font-semibold text-lg">Learning Paths</h3>
                             <button onclick="document.getElementById('path-modal').classList.remove('hidden')" class="text-primary text-sm hover:underline">+ Create Path</button>
                         </div>
                         <div id="paths-grid" class="grid md:grid-cols-3 gap-4"></div>
                     </section>
                     <section>
-                        <h3 class="font-heading font-semibold text-lg mb-4">Deep Work Tools</h3>
+                        <h3 class="font-display font-semibold text-lg mb-4">Deep Work Tools</h3>
                         <div class="grid md:grid-cols-2 gap-4">
                             <div class="glass-card p-6">
                                 <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-2">Flashcard Engine</p>
@@ -57,7 +57,7 @@ export default {
                                 </div>
                                 <div class="flex items-center justify-center h-48 relative">
                                     <div class="absolute w-20 h-20 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center">
-                                        <span class="text-xs font-heading font-semibold text-primary text-center">Quantum<br>State</span>
+                                        <span class="text-xs font-display font-semibold text-primary text-center">Quantum<br>State</span>
                                     </div>
                                     <div class="absolute top-2 left-1/4 px-2 py-1 rounded bg-surface-container-high/80 text-[10px] text-on-surface-variant">Superposition</div>
                                     <div class="absolute top-2 right-1/4 px-2 py-1 rounded bg-surface-container-high/80 text-[10px] text-on-surface-variant">Entanglement</div>
@@ -75,21 +75,21 @@ export default {
                         </div>
                     </section>
                     <section>
-                        <h3 class="font-heading font-semibold text-lg mb-4">Your Stats</h3>
+                        <h3 class="font-display font-semibold text-lg mb-4">Your Stats</h3>
                         <div class="grid md:grid-cols-3 gap-4" id="stats-grid">
                             <div class="glass-card p-5">
                                 <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-1">Total Learning Paths</p>
-                                <p class="text-2xl font-heading font-bold text-primary" id="stat-paths">0</p>
+                                <p class="text-2xl font-display font-bold text-primary" id="stat-paths">0</p>
                                 <p class="text-xs text-on-surface-variant/50 mt-1">Active paths</p>
                             </div>
                             <div class="glass-card p-5">
                                 <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-1">Total Flashcards</p>
-                                <p class="text-2xl font-heading font-bold text-secondary" id="stat-cards">0</p>
+                                <p class="text-2xl font-display font-bold text-secondary" id="stat-cards">0</p>
                                 <p class="text-xs text-on-surface-variant/50 mt-1">Across all paths</p>
                             </div>
                             <div class="glass-card p-5">
                                 <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-1">Avg. Progress</p>
-                                <p class="text-2xl font-heading font-bold text-tertiary" id="stat-progress">0%</p>
+                                <p class="text-2xl font-display font-bold text-tertiary" id="stat-progress">0%</p>
                                 <p class="text-xs text-on-surface-variant/50 mt-1">Completion rate</p>
                             </div>
                         </div>
@@ -99,7 +99,7 @@ export default {
         </main>
         <div id="path-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div class="glass-panel p-8 w-full max-w-md mx-4">
-                <h3 class="font-heading font-semibold text-xl mb-4">New Learning Path</h3>
+                <h3 class="font-display font-semibold text-xl mb-4">New Learning Path</h3>
                 <input id="path-title" type="text" placeholder="Path title" class="w-full px-4 py-2.5 bg-surface-container/60 border border-white/10 rounded-lg text-sm outline-none mb-3">
                 <select id="path-category" class="w-full px-4 py-2.5 bg-surface-container/60 border border-white/10 rounded-lg text-sm outline-none mb-4">
                     <option value="general">General</option>
@@ -117,7 +117,7 @@ export default {
         <div id="flashcard-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center bg-black/50 backdrop-blur-sm">
             <div class="glass-panel p-8 w-full max-w-lg mx-4">
                 <div class="flex items-center justify-between mb-4">
-                    <h3 class="font-heading font-semibold text-xl">Add Flashcard</h3>
+                    <h3 class="font-display font-semibold text-xl">Add Flashcard</h3>
                     <button onclick="document.getElementById('flashcard-modal').classList.add('hidden')" class="text-on-surface-variant hover:text-on-surface"><span class="material-symbols-outlined">close</span></button>
                 </div>
                 <textarea id="fc-question" placeholder="Question" class="w-full px-4 py-2.5 bg-surface-container/60 border border-white/10 rounded-lg text-sm outline-none mb-3 h-20 resize-none"></textarea>
@@ -166,7 +166,7 @@ async function loadPaths() {
                     <span class="px-2 py-0.5 rounded text-[10px] font-mono bg-primary/10 text-primary">${p.category}</span>
                     <span class="text-[10px] text-on-surface-variant/50">${p.flashcard_count} cards</span>
                 </div>
-                <h4 class="font-heading font-semibold mb-2">${p.title}</h4>
+                <h4 class="font-display font-semibold mb-2">${p.title}</h4>
                 <div class="w-full bg-surface-container-high/50 rounded-full h-1.5">
                     <div class="bg-primary rounded-full h-1.5 transition-all" style="width:${p.progress}%"></div>
                 </div>
