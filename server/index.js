@@ -1,8 +1,12 @@
-import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
+import dotenv from 'dotenv';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+dotenv.config({ path: join(__dirname, '..', '.env') });
+
+import express from 'express';
+import cors from 'cors';
 import { existsSync, mkdirSync } from 'fs';
 import { getDb } from './db/database.js';
 import authRoutes from './routes/auth.js';
@@ -11,7 +15,6 @@ import chatRoutes from './routes/chats.js';
 import learningRoutes from './routes/learning.js';
 import graphRoutes from './routes/graph.js';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 

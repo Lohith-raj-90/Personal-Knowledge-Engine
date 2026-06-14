@@ -16,6 +16,7 @@ export async function getDb() {
     } else {
         db = new SQL.Database();
     }
+    db.run('PRAGMA foreign_keys = ON');
     const schema = readFileSync(join(__dirname, 'schema.sql'), 'utf-8');
     db.exec(schema);
     saveDb();
