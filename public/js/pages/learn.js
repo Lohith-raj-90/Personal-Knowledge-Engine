@@ -75,22 +75,22 @@ export default {
                         </div>
                     </section>
                     <section>
-                        <h3 class="font-heading font-semibold text-lg mb-4">Recent Activity</h3>
-                        <div class="grid md:grid-cols-3 gap-4">
+                        <h3 class="font-heading font-semibold text-lg mb-4">Your Stats</h3>
+                        <div class="grid md:grid-cols-3 gap-4" id="stats-grid">
                             <div class="glass-card p-5">
-                                <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-1">Time Spent Today</p>
-                                <p class="text-2xl font-heading font-bold text-primary">2h 45m</p>
-                                <p class="text-xs text-green-400 mt-1">+12% from yesterday</p>
+                                <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-1">Total Learning Paths</p>
+                                <p class="text-2xl font-heading font-bold text-primary" id="stat-paths">0</p>
+                                <p class="text-xs text-on-surface-variant/50 mt-1">Active paths</p>
                             </div>
                             <div class="glass-card p-5">
-                                <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-1">Concepts Mastered</p>
-                                <p class="text-2xl font-heading font-bold text-secondary">42</p>
-                                <p class="text-xs text-on-surface-variant/50 mt-1">Top: Wave Mechanics</p>
+                                <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-1">Total Flashcards</p>
+                                <p class="text-2xl font-heading font-bold text-secondary" id="stat-cards">0</p>
+                                <p class="text-xs text-on-surface-variant/50 mt-1">Across all paths</p>
                             </div>
                             <div class="glass-card p-5">
-                                <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-1">Next Session</p>
-                                <p class="text-lg font-heading font-semibold">Quantum Tunneling</p>
-                                <p class="text-xs text-on-surface-variant/50 mt-1">Starts in 15 mins</p>
+                                <p class="text-[10px] font-mono text-on-surface-variant/50 uppercase tracking-wider mb-1">Avg. Progress</p>
+                                <p class="text-2xl font-heading font-bold text-tertiary" id="stat-progress">0%</p>
+                                <p class="text-xs text-on-surface-variant/50 mt-1">Completion rate</p>
                             </div>
                         </div>
                     </section>
@@ -136,9 +136,25 @@ export default {
     },
     async mount() {
         await loadPaths();
+        await loadStats();
     },
     unmount() {}
 };
+
+async function loadStats() {
+    try {
+        const totalCards = paths.reduce((sum, p) => sum + (p.flashcard_count || 0), 0);
+        const avgProgress = paths.length > 0
+            ? Math.round(paths.reduce((sum, p) => sum + p.progress, 0) / paths.length)
+            : 0;
+        const pathsEl = document.getElementById('stat-paths');
+        const cardsEl = document.getElementById('stat-cards');
+        const progressEl = document.getElementById('stat-progress');
+        if (pathsEl) pathsEl.textContent = paths.length;
+        if (cardsEl) cardsEl.textContent = totalCards;
+        if (progressEl) progressEl.textContent = avgProgress + '%';
+    } catch {}
+}
 
 async function loadPaths() {
     try {

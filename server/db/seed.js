@@ -1,4 +1,4 @@
-import { getDb, run, get, all } from './database.js';
+import { getDb, run, get, all, flushDb } from './database.js';
 import bcrypt from 'bcryptjs';
 
 async function seed() {
@@ -87,6 +87,7 @@ async function seed() {
 
     console.log('\nSeed complete!');
     console.log('Login with: demo@pke.io / demo123');
+    flushDb();
     process.exit(0);
 }
 

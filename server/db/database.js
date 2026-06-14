@@ -6,6 +6,19 @@ import { fileURLToPath } from 'url';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const DB_PATH = join(__dirname, '..', 'pke.db');
 let db;
+let _saveTimeout = null;
+
+/**
+ * Debounced save — batches rapid writes into a single disk flush (50ms window).
+ * Prevents full DB export on every INSERT/UPDATE/DELETE.
+ */
+function scheduleSave() {
+    if (_saveTimeout) clearTimeout(_saveTimeout);
+    _saveTimeout = setTimeout(() => {
+        _saveTimeout = null;
+        saveDb();
+    }, 50);
+}
 
 export async function getDb() {
     if (db) return db;
@@ -29,12 +42,21 @@ export function saveDb() {
     writeFileSync(DB_PATH, buffer);
 }
 
+/** Force an immediate save (for process exit, seed, etc.) */
+export function flushDb() {
+    if (_saveTimeout) {
+        clearTimeout(_saveTimeout);
+        _saveTimeout = null;
+    }
+    saveDb();
+}
+
 export function run(sql, params = []) {
     db.run(sql, params);
     const changes = db.getRowsModified();
     const res = db.exec("SELECT last_insert_rowid() as id");
     const lastInsertRowid = res.length > 0 && res[0].values.length > 0 ? res[0].values[0][0] : null;
-    saveDb();
+    scheduleSave();
     return { changes, lastInsertRowid };
 }
 

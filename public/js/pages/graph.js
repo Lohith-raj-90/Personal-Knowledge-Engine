@@ -120,8 +120,26 @@ async function loadGraph() {
 }
 
 function filterNodes(query) {
-    const nodes = document.querySelectorAll('#graph-canvas .node-label');
-    // Simple text filter on visible labels
+    if (!query) {
+        // Reset: show all nodes by making them opaque again
+        document.querySelectorAll('#graph-canvas canvas').forEach(c => c.style.opacity = '1');
+        return;
+    }
+    const lower = query.toLowerCase();
+    const matches = graphData.nodes.filter(n =>
+        n.title.toLowerCase().includes(lower) ||
+        (n.content && n.content.toLowerCase().includes(lower))
+    );
+    const matchIds = new Set(matches.map(n => n.id));
+    // Highlight matching cluster sidebar entries
+    document.querySelectorAll('#cluster-list > div').forEach(el => {
+        const id = parseInt(el.getAttribute('onclick')?.match(/\d+/)?.[0]);
+        if (!isNaN(id)) {
+            const cluster = graphData.clusters.find(c => c.id === id);
+            const hasMatch = graphData.nodes.some(n => n.cluster_id === id && matchIds.has(n.id));
+            el.style.opacity = (!query || hasMatch || (cluster && cluster.name.toLowerCase().includes(lower))) ? '1' : '0.3';
+        }
+    });
 }
 
 window._pkeSelectCluster = (id) => {

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { getDb, run, get, all } from '../db/database.js';
 import { authMiddleware } from '../middleware/auth.js';
-import { indexDocument, search } from '../services/search.js';
+import { search, indexDocument, isIndexed } from '../services/search.js';
 import { generateResponse } from '../services/llm.js';
 
 const router = Router();
@@ -51,9 +51,12 @@ router.post('/:id/messages', async (req, res) => {
 
         run('INSERT INTO messages (chat_id, role, content) VALUES (?, ?, ?)', [chat.id, 'user', content]);
 
+        // Lazily index only documents not yet in the search index (avoids full rebuild per message)
         const docs = all('SELECT * FROM documents WHERE user_id = ?', [req.user.id]);
         for (const doc of docs) {
-            if (doc.content_text) indexDocument(doc.id, doc.content_text);
+            if (doc.content_text && !isIndexed(doc.id)) {
+                indexDocument(doc.id, doc.content_text);
+            }
         }
         const searchResults = search(content, req.user.id, docs);
 

@@ -107,6 +107,10 @@ router.post('/edges', async (req, res) => {
         const { source_node_id, target_node_id, weight, edge_type } = req.body;
         if (!source_node_id || !target_node_id) return res.status(400).json({ error: 'Source and target node IDs are required' });
         await getDb();
+        // Authorization: verify both nodes belong to the authenticated user
+        const srcNode = get('SELECT id FROM knowledge_nodes WHERE id = ? AND user_id = ?', [source_node_id, req.user.id]);
+        const tgtNode = get('SELECT id FROM knowledge_nodes WHERE id = ? AND user_id = ?', [target_node_id, req.user.id]);
+        if (!srcNode || !tgtNode) return res.status(404).json({ error: 'One or both nodes not found' });
         const existing = get('SELECT id FROM knowledge_edges WHERE source_node_id = ? AND target_node_id = ?', [source_node_id, target_node_id]);
         if (existing) return res.status(409).json({ error: 'Edge already exists' });
         const result = run('INSERT INTO knowledge_edges (source_node_id, target_node_id, weight, edge_type) VALUES (?, ?, ?, ?)',

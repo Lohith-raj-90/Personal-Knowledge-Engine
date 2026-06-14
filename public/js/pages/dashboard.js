@@ -128,12 +128,19 @@ window._pkeSuggestion = (text) => {
     input.dispatchEvent(new KeyboardEvent('keypress', { key: 'Enter' }));
 };
 
+function escapeHTML(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+}
+
 function msgHTML(role, content) {
     const isUser = role === 'user';
+    const safe = escapeHTML(content).replace(/\n/g, '<br>');
     return `
     <div class="flex ${isUser ? 'justify-end' : 'justify-start'} animate-fade-up">
         <div class="${isUser ? 'bg-primary/10 border border-primary/20' : 'bg-surface-container-high/50 border border-white/5'} max-w-2xl px-4 py-3 rounded-2xl text-sm leading-relaxed">
-            ${content.replace(/\n/g, '<br>')}
+            ${safe}
         </div>
     </div>`;
 }

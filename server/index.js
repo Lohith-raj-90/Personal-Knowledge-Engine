@@ -4,7 +4,7 @@ import cors from 'cors';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { existsSync, mkdirSync } from 'fs';
-import { getDb } from './db/database.js';
+import { getDb, flushDb } from './db/database.js';
 import authRoutes from './routes/auth.js';
 import documentRoutes from './routes/documents.js';
 import chatRoutes from './routes/chats.js';
@@ -15,8 +15,12 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+    origin: process.env.CORS_ORIGIN || '*',
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+}));
+app.use(express.json({ limit: '1mb' }));
 
 const uploadDir = process.env.UPLOAD_DIR || join(__dirname, 'uploads');
 if (!existsSync(uploadDir)) mkdirSync(uploadDir, { recursive: true });
@@ -42,3 +46,8 @@ getDb().then(() => {
     console.error('Failed to initialize database:', err);
     process.exit(1);
 });
+
+// Flush pending debounced DB writes on shutdown
+process.on('SIGTERM', () => { flushDb(); process.exit(0); });
+process.on('SIGINT', () => { flushDb(); process.exit(0); });
+process.on('exit', flushDb);
