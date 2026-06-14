@@ -82,6 +82,7 @@ router.delete('/:id', async (req, res) => {
         await getDb();
         const chat = get('SELECT * FROM chats WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
         if (!chat) return res.status(404).json({ error: 'Chat not found' });
+        run('DELETE FROM messages WHERE chat_id = ?', [chat.id]);
         run('DELETE FROM chats WHERE id = ?', [chat.id]);
         res.json({ success: true });
     } catch (err) {
