@@ -3,10 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PKE — Personal Knowledge Engine</title>
+    <title>PKE — Open Source Private RAG Platform & Knowledge Engine</title>
+    <meta name="description" content="PKE is an open-source, self-hosted RAG platform for researchers and engineers. Transform documents into AI-powered knowledge graphs, chat with your data, and master concepts — all private, all yours.">
+    <meta name="keywords" content="RAG platform, knowledge graph, open source, self-hosted, private AI, document intelligence, AI chat, learning paths">
+    <link rel="canonical" href="https://pke.dev">
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PKE — Open Source Private RAG Platform & Knowledge Engine">
+    <meta property="og:description" content="Transform documents into AI-powered knowledge graphs. Open source, self-hosted, and private.">
+    <meta property="og:url" content="https://pke.dev">
+    <meta property="og:site_name" content="PKE">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PKE — Open Source Private RAG Platform">
+    <meta name="twitter:description" content="Transform documents into AI-powered knowledge graphs. Open source, self-hosted, and private.">
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%230f1219'/%3E%3Ccircle cx='50' cy='50' r='20' fill='none' stroke='%234f9eff' stroke-width='3'/%3E%3Ccircle cx='50' cy='50' r='5' fill='%234f9eff'/%3E%3C/svg%3E">
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Sora:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Sora:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
     <link rel="stylesheet" href="/css/shared.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -15,28 +30,71 @@
             theme: {
                 extend: {
                     colors: {
-                        surface: '#101419',
-                        'surface-dim': '#101419',
-                        'surface-bright': '#363a3f',
-                        'surface-container-lowest': '#0b0e13',
-                        'surface-container-low': '#181c21',
-                        'surface-container': '#1c2025',
-                        'surface-container-high': '#262a2f',
-                        'surface-container-highest': '#31353a',
-                        primary: '#4f9eff',
+                        void: '#0a0d12',
+                        surface: '#0f1219',
+                        'surface-dim': '#0a0d12',
+                        'surface-bright': '#2a2e35',
+                        'surface-glass': 'rgba(14, 18, 25, 0.7)',
+                        'surface-container-lowest': '#080b10',
+                        'surface-container-low': '#141820',
+                        'surface-container': '#1a1e27',
+                        'surface-container-high': '#22272f',
+                        'surface-container-highest': '#2d323a',
+                        primary: {
+                            DEFAULT: '#4f9eff',
+                            50: '#eef5ff',
+                            100: '#d9e8ff',
+                            200: '#bcd7ff',
+                            300: '#8ebfff',
+                            400: '#599dff',
+                            500: '#4f9eff',
+                            600: '#1b57f5',
+                            700: '#1443e1',
+                            800: '#1736b6',
+                            900: '#19338f',
+                        },
                         'primary-container': '#005bad',
-                        secondary: '#cebdff',
+                        secondary: {
+                            DEFAULT: '#cebdff',
+                            50: '#f5f0ff',
+                            100: '#ede5ff',
+                            200: '#ddd0ff',
+                            300: '#cebdff',
+                            400: '#b49aff',
+                            500: '#a78bfa',
+                            600: '#8b5cf6',
+                            700: '#7c3aed',
+                            800: '#6d28d9',
+                            900: '#5b21b6',
+                        },
                         'secondary-container': '#5b42a0',
-                        tertiary: '#ffb867',
+                        tertiary: {
+                            DEFAULT: '#ffb867',
+                            50: '#fff8ed',
+                            100: '#ffefd4',
+                            200: '#ffdda8',
+                            300: '#ffb867',
+                            400: '#ff9a3d',
+                            500: '#ff7b14',
+                            600: '#f06007',
+                            700: '#c74808',
+                            800: '#9e390f',
+                            900: '#7f3110',
+                        },
                         'tertiary-container': '#7d4e00',
+                        neon: {
+                            violet: '#a78bfa',
+                            cyan: '#06b6d4',
+                            pink: '#ec4899',
+                        },
                         outline: '#8d9199',
                         'outline-variant': '#41474d',
-                        'on-surface': '#e1e3e8',
-                        'on-surface-variant': '#c1c7ce',
+                        'on-surface': '#e8eaf0',
+                        'on-surface-variant': '#a0a8b4',
                     },
                     fontFamily: {
-                        heading: ['Sora', 'sans-serif'],
-                        body: ['Plus Jakarta Sans', 'sans-serif'],
+                        display: ['Sora', 'sans-serif'],
+                        body: ['Outfit', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     borderRadius: {
@@ -44,6 +102,10 @@
                         'md': '12px',
                         'lg': '16px',
                         'xl': '28px',
+                    },
+                    letterSpacing: {
+                        'display': '-0.03em',
+                        'overline': '0.2em',
                     }
                 }
             }
