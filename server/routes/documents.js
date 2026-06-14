@@ -6,6 +6,7 @@ import { unlinkSync } from 'fs';
 import { getDb, run, get, all } from '../db/database.js';
 import { authMiddleware } from '../middleware/auth.js';
 import { extractText } from '../services/extract.js';
+import { removeDocument } from '../services/search.js';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const router = Router();
@@ -50,6 +51,7 @@ router.delete('/:id', async (req, res) => {
         const doc = get('SELECT * FROM documents WHERE id = ? AND user_id = ?', [req.params.id, req.user.id]);
         if (!doc) return res.status(404).json({ error: 'Document not found' });
         try { unlinkSync(doc.file_path); } catch {}
+        removeDocument(doc.id);
         run('DELETE FROM documents WHERE id = ?', [doc.id]);
         res.json({ success: true });
     } catch (err) {
